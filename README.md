@@ -10,7 +10,7 @@ App
             - Web
             - Chrome
             - MobileApp
-            - SlactBot
+            - SlackBot
             - BuildingPreview
             - Hover (Incomplete)
         
