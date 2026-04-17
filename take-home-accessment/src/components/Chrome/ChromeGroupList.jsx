@@ -1,6 +1,6 @@
 import React from 'react'
 import { SAVED_SESSIONS, ChevronIcon, PinIcon, LockIcon, FolderIcon } from './chromeData.jsx'
-import './ChromeGroups.css'
+import './ChromeGroupList.css'
 
 function ChromeGroupList({ filteredGroups, expanded, toggleExpand, showSessions, sessionsOpen, setSessionsOpen }) {
     return (

@@ -4,6 +4,7 @@ import ChatSection from './ChatSection'
 import AirbnbLive from './Airbnb/AirbnbLive'
 import ChromeLive from './Chrome/ChromeLive'
 import MobileLive from './Mobile/MobileLive'
+import SlackLive from './Slack/SlackLive'
 import BuildingPreview from './BuildingPreview'
 import './HeroSection.css'
 
@@ -47,7 +48,7 @@ function HeroSection(){
     // Called when a full response animation completes — hide BuildingPreview, advance stage
     const handleResponseDone = () => {
         setIsBuilding(false)
-        setBuildStage(prev => Math.min(prev + 1, 3))
+        setBuildStage(prev => Math.min(prev + 1, 4))
     }
 
     return(
@@ -68,7 +69,9 @@ function HeroSection(){
             ) : activeTab === 'chrome' ? (
                 <ChromeLive stage={buildStage === 1 ? 2 : buildStage - 1} />
             ) : activeTab === 'mobile' ? (
-                <MobileLive />
+                <MobileLive stage={buildStage === 1 ? 2 : buildStage - 1} />
+            ) : activeTab === 'slack' ? (
+                <SlackLive stage={buildStage === 1 ? 3 : buildStage - 1} />
             ) : (
                 <AirbnbLive stage={buildStage} buildProgress={buildProgress} />
             )}

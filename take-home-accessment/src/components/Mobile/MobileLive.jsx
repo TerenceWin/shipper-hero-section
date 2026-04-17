@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './Mobile.css'
+import './MobileLive.css'
 
 const WAVEFORM = [1,1,3,7,14,22,32,42,50,55,54,48,38,26,12,4,12,26,38,48,54,55,50,42,32,22,14,7,3,1,1]
 const PLAYHEAD = 14   // index where playhead sits (~47s of 84s)
@@ -24,12 +24,18 @@ const MicIcon = ({ size = 14, color = 'currentColor' }) => (
     </svg>
 )
 
-function MobileLive() {
-    const [playing,      setPlaying]      = useState(false)
+const SPEEDS = ['0.5x', '1x', '1.5x', '2x']
+
+// ── Stage 1: base ── Stage 2: + v2.0 badge, speed controls, drag-to-scrub ──
+function MobileLive({ stage = 1 }) {
+    const [playing,       setPlaying]       = useState(false)
     const [activeEffects, setActiveEffects] = useState({ 'Reverb': true, 'Echo': true })
-    const [recentActive, setRecentActive] = useState(1)
-    const toggleEffect  = (label) => setActiveEffects(prev => ({ ...prev, [label]: !prev[label] }))
-    const activeCount   = Object.values(activeEffects).filter(Boolean).length
+    const [recentActive,  setRecentActive]  = useState(1)
+    const [activeSpeed,   setActiveSpeed]   = useState('1x')
+
+    const toggleEffect = (label) => setActiveEffects(prev => ({ ...prev, [label]: !prev[label] }))
+    const activeCount  = Object.values(activeEffects).filter(Boolean).length
+    const showV2       = stage >= 2
 
     return (
         <div className="mobileWrapper">
@@ -55,10 +61,13 @@ function MobileLive() {
                         <span className="mobileAppName">EchoForge</span>
                         <span className="mobileAiBadge">AI</span>
                     </div>
-                    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round">
-                        <circle cx="18" cy="5" r="2"/><circle cx="6" cy="12" r="2"/><circle cx="18" cy="19" r="2"/>
-                        <path d="M8 11.5l8-5M8 12.5l8 5"/>
-                    </svg>
+                    <div className="mobileHeaderRight">
+                        {showV2 && <span className="mobileV2Badge">v2.0</span>}
+                        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round">
+                            <circle cx="18" cy="5" r="2"/><circle cx="6" cy="12" r="2"/><circle cx="18" cy="19" r="2"/>
+                            <path d="M8 11.5l8-5M8 12.5l8 5"/>
+                        </svg>
+                    </div>
                 </div>
 
                 {/* Waveform player card */}
@@ -89,9 +98,29 @@ function MobileLive() {
 
                     {/* Timeline labels */}
                     <div className="mobileTimeline">
-                        {['0:00','0:30','1:00','1:24'].map(t => <span key={t}>{t}</span>)}
+                        {['0:00','0:15','0:30','0:45','1:00','1:24'].map(t => <span key={t}>{t}</span>)}
                     </div>
+
+                    {/* Drag to scrub — stage 2 only */}
+                    {showV2 && <p className="mobileScrubHint">— drag to scrub —</p>}
                 </div>
+
+                {/* Speed controls — stage 2 only */}
+                {showV2 && (
+                    <div className="mobileSpeedRow">
+                        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round">
+                            <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/>
+                        </svg>
+                        {SPEEDS.map(s => (
+                            <button key={s}
+                                className={`mobileSpeedBtn ${activeSpeed === s ? 'mobileSpeedActive' : ''}`}
+                                onClick={() => setActiveSpeed(s)}>
+                                {s}
+                            </button>
+                        ))}
+                        <span className="mobileSpeedLabel">Speed</span>
+                    </div>
+                )}
 
                 {/* Playback controls */}
                 <div className="mobileControls">

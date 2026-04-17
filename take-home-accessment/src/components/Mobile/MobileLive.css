@@ -49,7 +49,9 @@
     padding: 0 13px 7px; margin-top: 10px; 
     margin-bottom: 10px; 
 }
-.mobileHeaderLeft { display: flex; align-items: center; gap: 5px; }
+.mobileHeaderLeft  { display: flex; align-items: center; gap: 5px; }
+.mobileHeaderRight { display: flex; align-items: center; gap: 8px; }
+.mobileV2Badge     { font-size: 8px; font-weight: 700; color: #888; border: 1px solid #333; border-radius: 4px; padding: 1px 5px; }
 .mobileAppName    { font-size: 13px; font-weight: 800; color: #fff; letter-spacing: -0.3px; }
 .mobileAiBadge    {
     font-size: 7px; font-weight: 800; color: #f07828;
@@ -144,6 +146,25 @@
     scrollbar-width: none;
 }
 .mobileScroll::-webkit-scrollbar { display: none; }
+
+/* ── Drag to scrub hint (stage 2) ── */
+.mobileScrubHint { margin: 4px 0 0; font-size: 7px; color: #4a3820; text-align: center; letter-spacing: 0.5px; }
+
+/* ── Speed controls (stage 2) ── */
+.mobileSpeedRow {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 4px 14px 8px;
+}
+.mobileSpeedBtn {
+    all: unset; cursor: pointer;
+    font-size: 9px; font-weight: 600; color: #666;
+    background: #1e1a12; border: 1px solid #2e2818;
+    border-radius: 6px; padding: 3px 7px;
+    transition: background 0.15s, color 0.15s;
+}
+.mobileSpeedBtn:hover  { background: #2a2418; color: #aaa; }
+.mobileSpeedActive     { background: #f07828 !important; border-color: #f07828 !important; color: #fff !important; }
+.mobileSpeedLabel      { font-size: 9px; color: #555; margin-left: 2px; }
 
 /* ── Section layout ── */
 .mobileSection       { padding: 0 10px; margin: 15px 5px;}
