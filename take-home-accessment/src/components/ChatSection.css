@@ -1,0 +1,231 @@
+.chatSection{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #fcfdf7;
+    box-sizing: border-box;
+    overflow: hidden;
+    border-radius: 0 0 15px 15px;
+}
+
+.timerLine{
+    height: 4px;
+    width: 0%;
+    background-color: #199b7f;
+    animation: timerExpand 10s linear infinite;
+}
+
+.timerLineControlled{
+    animation: none;
+}
+
+@keyframes timerExpand {
+    0% {
+        width: 0%;
+    }
+    30% {
+        width: 85%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+.chatHistory{
+    width: 100%;
+    height: 80%;
+    box-sizing: border-box;
+    padding: 10px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.chatMessage{
+    background-color: #edece7;
+    color: black;
+    font-size: 14px;
+    border-radius: 12px;
+    padding: 8px 12px;
+    max-width: 80%;
+    margin-bottom: 8px;
+    word-wrap: break-word;
+}
+
+.chatBox{
+    max-width: 100%;
+    height: 20%;
+    border-radius: 15px;
+    padding: 10px;
+    position: relative;
+    z-index: 0;
+    border: 3px solid transparent;
+    background:
+        linear-gradient(#ffffff, #ffffff) padding-box,
+        conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, yellow, pink 180deg, transparent 180deg, transparent 360deg) border-box;
+    animation: 3s spin linear infinite;
+}
+
+@property --angle{
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.chatBox::before{
+    content: '';
+    position: absolute;
+    z-index: -1;
+    border-radius: 17px;
+    animation: 3s spin linear infinite;
+    filter: blur(0.5rem);
+    opacity: 0;
+}
+
+@keyframes spin{
+    from{
+        --angle: 0deg;
+    }to{
+        --angle: 360deg;
+    }
+}
+
+.chatBox.chatBoxActive {
+    background:
+        linear-gradient(#ffffff, #ffffff) padding-box,
+        linear-gradient(#98c7bd, #92c2b7) border-box;
+    animation: none;
+}
+
+.chatInput{
+    all: unset;
+    width: 100%;
+    height: 65px;
+    box-sizing: border-box;
+    padding: 5px;
+    font-size: 14px;
+    vertical-align: top;
+    white-space: normal;
+    overflow-x: hidden;
+    overflow-y: auto;
+    resize: none;
+    line-height: 18px;
+}
+
+.chatInput.chatInputActive {
+    color: white;
+}
+
+.chatBoxButtons{
+    box-sizing: border-box;
+    width: 100%;
+    height: 45px;
+    padding: 10px 12px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.micButton{
+    all: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.micIcon{
+    width: 15px;
+    height: 20px;
+}
+
+.arrowButton{
+    all: unset;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    padding: 0;
+    background-color: #199b7f;
+    overflow: visible;
+    z-index: 99;
+}
+
+.arrowButton:hover{
+    filter: brightness(0.80)
+}
+
+.arrowButton::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #199b7f;
+    animation: radar 2s ease-out infinite;
+    z-index: 99;
+}
+
+@keyframes radar {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.6;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(5);
+        opacity: 0;
+    }
+}
+
+.arrowIcon{
+    width: 10px;
+    height: 10px;
+    filter: invert(1);
+}
+
+.arrowWrapper{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.clickHereButton{
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 30%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 25px;
+    background-color: #199b7f;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    color: white;
+    white-space: nowrap;
+    z-index: 3;
+}
+
+.clickHereButton::after{
+    content: "";
+    position: absolute;
+    top: 80%;
+    left: 55%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 10px;
+    height: 10px;
+    background-color: #199b7f;
+    z-index: 2;
+}
