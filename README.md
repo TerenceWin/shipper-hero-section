@@ -5,6 +5,7 @@ App
     - HeroSection
         - LeftPanel
             - TabBar 
+            - chatHistory
             - chatBox
         - RightPanel (Preview)
             - Web
@@ -13,14 +14,21 @@ App
             - SlackBot
             - BuildingPreview
             - Hover (Incomplete)
-        
 
 Differences
+- Non-Resonsive for mobile/ ipad User 
 - Hero section sky background image
 - Tab icon color don't change when hover
-- The ChatBox border 
-- SlackBot stage3 differences(didn't finish on time)
+- The ChatBox border animation
+- Airbnb category icons 
 - The Right Panel, dont have HoverPreview
+- On Mobile Preview
+    - The Wave bar for sounds cannot be moved
+    - Used AI for icons creation (using svg)
+- On SlackBot Preview, 
+    - Message differences on stage3(didn't finish on time)
+
+
 
 ---
 
