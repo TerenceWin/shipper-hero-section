@@ -1,0 +1,55 @@
+/* ── Filter toggle button ── */
+.filterButtonWrapper { position: relative; flex-shrink: 0; }
+.filterToggleBtn {
+    all: unset; cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 600; color: #222;
+    border: 1px solid #dddddd; border-radius: 10px;
+    padding: 8px 14px; white-space: nowrap;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.filterToggleBtn:hover      { border-color: #222; }
+.filterToggleBtnActive      { border-color: #222; box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
+.filterToggleBtnNight       { color: #fff; border-color: #444; background-color: transparent; }
+.filterToggleBtnNight:hover { border-color: #fff; }
+.filterToggleIcon { width: 14px; height: 14px; fill: currentColor; }
+
+/* ── Filter panel card ── */
+.filterPanel {
+    position: absolute; top: calc(100% + 8px); right: 0;
+    width: 340px; background: white;
+    border: 1px solid #ebebeb; border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.14);
+    z-index: 100; padding: 16px 0;
+}
+.filterSection      { padding: 12px 20px; }
+.filterSectionTitle { margin: 0 0 10px 0; font-size: 13px; font-weight: 700; color: #222; }
+.filterDivider      { height: 1px; background-color: #ebebeb; margin: 0; }
+
+/* Chips */
+.filterChips { display: flex; flex-wrap: wrap; gap: 8px; }
+.filterChip  { all: unset; cursor: pointer; font-size: 12px; padding: 6px 14px; border-radius: 20px; border: 1px solid #dddddd; color: #222; transition: border-color 0.15s, background-color 0.15s; }
+.filterChip:hover   { border-color: #222; }
+.filterChipActive   { background-color: #222; color: white; border-color: #222; }
+
+/* Price range */
+.filterPriceRow   { display: flex; align-items: center; gap: 10px; }
+.filterPriceInput { display: flex; align-items: center; border: 1px solid #dddddd; border-radius: 8px; padding: 6px 10px; gap: 4px; flex: 1; }
+.filterPriceInput:focus-within { border-color: #222; }
+.filterPricePrefix { font-size: 13px; color: #222; }
+.filterPriceField  { border: none; outline: none; font-size: 13px; width: 100%; color: #222; }
+.filterPriceField::-webkit-inner-spin-button,
+.filterPriceField::-webkit-outer-spin-button { -webkit-appearance: none; }
+.filterPriceDash { font-size: 14px; color: #717171; }
+
+/* Count buttons */
+.filterCountRow { display: flex; flex-wrap: wrap; gap: 6px; }
+.filterCountBtn { all: unset; cursor: pointer; font-size: 12px; padding: 5px 12px; border-radius: 20px; border: 1px solid #dddddd; color: #222; transition: border-color 0.15s, background-color 0.15s; }
+.filterCountBtn:hover  { border-color: #222; }
+.filterCountBtnActive  { background-color: #222; color: white; border-color: #222; }
+
+/* Footer */
+.filterFooter   { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px 4px; }
+.filterClearBtn { all: unset; cursor: pointer; font-size: 12px; font-weight: 600; color: #222; text-decoration: underline; }
+.filterShowBtn  { all: unset; cursor: pointer; font-size: 12px; font-weight: 600; background-color: #222; color: white; padding: 10px 18px; border-radius: 8px; transition: background-color 0.2s; }
+.filterShowBtn:hover { background-color: #444; }

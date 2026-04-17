@@ -1,0 +1,214 @@
+/* ── Outer wrapper ── */
+.mobileWrapper {
+    width: 100%; height: 100%;
+    background: #f5f5f0;
+    border-radius: 15px;
+    display: flex; align-items: center; justify-content: center;
+}
+
+/* ── Phone frame ── */
+.mobilePhone {
+    width: 295px;
+    height: 590px;
+    background: #130f09;
+    border-radius: 30px;
+    border: 2px solid #2a2218;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.45), inset 0 0 0 1px #3a2f1e;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    box-sizing: border-box;
+    position: relative;
+    font-family: -apple-system, sans-serif;
+    color: #fff;
+}
+
+/* ── Status bar — always visible, never scrolls ── */
+.mobileStatus {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px 8px;
+    font-size: 10px; font-weight: 700; color: #bbb;
+    margin-left: 7px; 
+    background: #130f09;   /* matches phone bg so it looks seamless */
+    flex-shrink: 0;        /* prevents it from being squeezed by flex children */
+    z-index: 10;
+}
+.mobileBattery {
+    width: 10px; height: 5px;                        /* smaller battery */
+    border: 1.5px solid #888; border-radius: 2px;
+    padding: 1px; position: relative;
+    margin-right: 10px; 
+}
+
+.mobileBatteryFill { width: 75%; height: 100%; background: #bbb; border-radius: 1px; }
+
+/* ── App header ── */
+.mobileHeader {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 13px 7px; margin-top: 10px; 
+    margin-bottom: 10px; 
+}
+.mobileHeaderLeft { display: flex; align-items: center; gap: 5px; }
+.mobileAppName    { font-size: 13px; font-weight: 800; color: #fff; letter-spacing: -0.3px; }
+.mobileAiBadge    {
+    font-size: 7px; font-weight: 800; color: #f07828;
+    background: rgba(240,120,40,0.18); border: 1px solid rgba(240,120,40,0.4);
+    border-radius: 4px; padding: 1px 4px;
+    filter: brightness(0.5);
+}
+.mobileBadgeHover{filter: brightness(1);}
+
+/* ── Player card ── */
+.mobilePlayerCard {
+    background: #1e1710;
+    margin: 0 4px 4px;
+    border-radius: 10px;
+    padding: 15px 15px;
+}
+.mobilePlayerTop {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 2px;
+}
+.mobilePausedRow    { display: flex; align-items: center; gap: 4px; }  /* gap 6→4 (-2 approx) */
+.mobilePausedDot    { width: 5px; height: 5px; border-radius: 50%; background: #f07828; }  /* 7→5 */
+.mobilePausedLabel  { font-size: 8px; font-weight: 400; color: #f07828; letter-spacing: 1px; }  /* 11→9 */
+.mobilePlayerTime   { font-size: 9px; color: #6a5540; font-variant-numeric: tabular-nums; }     /* 11→9 */
+
+/* ── Waveform ── */
+.mobileWaveform {
+    display: flex; align-items: center; gap: 2px;
+    height: 57px; position: relative;   /* 65→57 */
+}
+.mobileWaveBar {
+    flex: 1; border-radius: 2px;
+    transition: background 0.2s;
+}
+.mobilePlayhead {
+    position: absolute; top: 0; bottom: 0;
+    width: 1.5px; background: white;
+    border-radius: 2px; pointer-events: none;
+}
+
+/* ── Timeline ── */
+.mobileTimeline {
+    display: flex; justify-content: space-between;
+    margin-top: 4px;        /* 6→4 */
+    font-size: 7px; color: #5a4530;   /* 9→7 */
+}
+
+/* ── Playback controls ── */
+.mobileControls {
+    display: flex; align-items: center; justify-content: center;
+    gap: 28px; padding: 20px 10px;
+}
+.mobileCtrlBtn {
+    all: unset; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0.7; transition: opacity 0.15s;
+}
+.mobileCtrlBtn:hover { opacity: 1; }
+.mobilePlayBtn {
+    all: unset; cursor: pointer;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: #f07828;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 16px rgba(240,120,40,0.5);
+    transition: filter 0.15s;
+}
+.mobilePlayBtn:hover { filter: brightness(1.1); }
+
+/* ── Volume ── */
+.mobileVolumeRow {
+    display: flex; align-items: center; gap: 10px;
+    padding: 0 18px;
+    margin-bottom: 15px;  
+}
+.mobileSliderTrack {
+    flex: 1; height: 3px; background: #2a2010;
+    border-radius: 2px; position: relative;
+}
+.mobileSliderFill  { height: 100%; background: #f07828; border-radius: 2px; }
+.mobileSliderThumb {
+    position: absolute; top: 50%; transform: translate(-50%, -50%);
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+
+/* ── Scrollable content area ── */
+.mobileScroll {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 10px;             /* 10px side padding inside the phone */
+    scrollbar-width: none;
+}
+.mobileScroll::-webkit-scrollbar { display: none; }
+
+/* ── Section layout ── */
+.mobileSection       { padding: 0 10px; margin: 15px 5px;}
+.mobileSectionHeader { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.mobileSectionLeft   { display: flex; align-items: center; gap: 4px; }
+.mobileSectionTitle  { font-size: 10px; font-weight: 400; color: #888; }
+.mobileActiveCount   { font-size: 8px; font-weight: 400; color: #f07828; background: rgba(240,120,40,0.15); border: 1px solid rgba(240,120,40,0.3); border-radius: 8px; padding: 1px 6px; }
+
+/* ── AI Effect buttons ── */
+.mobileEffectsRow   { display: flex; gap: 5px;}
+.mobileEffectBtn {
+    all: unset; cursor: pointer; flex: 1;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    background: #1e1a12; border: 1px solid #2e2818;
+    border-radius: 8px; padding: 5px 2px;
+    font-size: 8px; color: #888;
+    transition: background 0.15s;
+}
+.mobileEffectBtn:hover    { background: #2a2418; }
+.mobileEffectActive {
+    background: #2d1e0a !important;
+    border-color: #f07828 !important;
+    color: #f07828 !important;
+}
+
+/* ── Recent items ── */
+.mobileRecentItem {
+    display: flex; align-items: center; gap: 7px;
+    padding: 6px 7px; border-radius: 8px;
+    margin-bottom: 3px;
+    transition: background 0.15s;
+}
+.mobileRecentItem:hover{cursor: pointer;}
+.mobileRecentActive { background: #231a0d; border: 1px solid #6a5540}
+.mobileRecentIcon {
+    width: 24px; height: 24px; border-radius: 6px;
+    background: #1e1810;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.mobileRecentIconActive { background: #2d1e0a; }
+.mobileRecentInfo   { display: flex; flex-direction: column; gap: 1px; flex: 1; min-width: 0; }
+.mobileRecentTitle  { font-size: 10px; font-weight: 400; color: #888; }
+.mobileRecentMeta   { font-size: 8px; color: #5a4830; }
+
+/* ── Mic FAB ── */
+.mobileFabRow {
+    display: flex;
+    justify-content: center;
+    padding: 12px 0 20px;
+}
+.mobileFab {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: #f07828;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(240,120,40,0.6);
+    cursor: pointer;
+    transition: filter 0.15s;
+}
+.mobileFab:hover { filter: brightness(1.1); }
+
+.homeSwipeDiv{  
+    width: 100%; height: 20px; 
+    display: flex; justify-content: center; align-items: center;
+    background-color: #130f08;
+}
+
+.homeSwipe{ width: 100px; height: 3px; background-color: #888; border-radius: 3px;
+}

@@ -31,17 +31,23 @@ const estimateResponseDuration = (data) => {
     )
 }
 
-function ChatSection({ activeTab, stopRotation }){
+function ChatSection({ activeTab, stopRotation, onBuildProgress, onSubmit, onResponseDone }){
 
-    const { isFocused, textareaValue, animationDone, messages, handleFocus, handleBlur, handleChange, handleKeyDown, requestText } = useChatSection(activeTab, stopRotation)
+    const { isFocused, textareaValue, animationDone, messages, handleFocus, handleBlur, handleChange, handleKeyDown, requestText } = useChatSection(activeTab, stopRotation, onSubmit)
 
     const [cloudEnabled, setCloudEnabled]               = useState(false)
     const [timerProgress, setTimerProgress]             = useState(0)
     const [timerTransitionDuration, setTimerTransition] = useState(800)
-    const completedCountRef = useRef(0)
+    const completedCountRef  = useRef(0)
+    const chatHistoryRef     = useRef(null)
 
     const timerControlled  = messages.some(m => m.type === 'response')
     const totalResponses   = ALL_TYPING_TEXTS.filter(t => t[activeTab]?.length > 0).length
+
+    const scrollToBottom = () => {
+        const el = chatHistoryRef.current
+        if (el) el.scrollTop = el.scrollHeight
+    }
 
     // Reset on tab switch
     useEffect(() => {
@@ -72,6 +78,8 @@ function ChatSection({ activeTab, stopRotation }){
         completedCountRef.current++
         const progress = Math.min((completedCountRef.current / totalResponses) * 100, 100)
 
+        onResponseDone?.()
+
         // End the timerLine exactly 3 seconds after response finishes
         setTimeout(() => {
             setTimerTransition(3000)
@@ -90,7 +98,7 @@ function ChatSection({ activeTab, stopRotation }){
                 } : {}}
             />
 
-            <div className={`chatHistory`}>
+            <div className={`chatHistory`} ref={chatHistoryRef}>
                 {messages.map((msg, i) => {
                     if (msg.type === 'user') {
                         return <div key={i} className="chatMessage">{msg.text}</div>
@@ -102,6 +110,8 @@ function ChatSection({ activeTab, stopRotation }){
                             cloudEnabled={cloudEnabled}
                             setCloudEnabled={setCloudEnabled}
                             onComplete={onResponseComplete}
+                            onFileProgress={onBuildProgress}
+                            scrollToBottom={scrollToBottom}
                         />
                     )
                 })}

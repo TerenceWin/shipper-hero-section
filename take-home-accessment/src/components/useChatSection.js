@@ -5,7 +5,7 @@ import { RESPONSE_TEXT1, RESPONSE_TEXT2, RESPONSE_TEXT3 } from './chatData.js'
 const TYPING_TEXTS = [TYPING_TEXTS1, TYPING_TEXTS2, TYPING_TEXTS3]
 const RESPONSE_TEXTS = [RESPONSE_TEXT1, RESPONSE_TEXT2, RESPONSE_TEXT3]
 
-export function useChatSection(activeTab, stopRotation) {
+export function useChatSection(activeTab, stopRotation, onSubmit) {
     const [isFocused, setIsFocused] = useState(false)
     const [animatedText, setAnimatedText] = useState('')
     const [userTyped, setUserTyped] = useState(null)
@@ -106,6 +106,7 @@ export function useChatSection(activeTab, stopRotation) {
 
         if (userTyped === null || textToSubmit === expectedText) {
             stopRotation?.()
+            onSubmit?.()
             const responseId = Date.now()
             setMessages(prev => [
                 ...prev,

@@ -1,0 +1,39 @@
+/* ── Group list container ── */
+.chromeGroupList    { padding: 6px 0; flex: 1; overflow-y: auto; } /* flex:1 fills remaining height; scrolls when tabs overflow */
+.chromeGroupSection { display: flex; flex-direction: column; }
+.chromeGroupDivider { height: 1px; background: #f0f0f0; margin: 4px 14px; }
+
+/* ── Group row ── */
+.chromeGroupRow {
+    display: flex; align-items: center; gap: 8px;
+    padding: 9px 14px; border-radius: 8px; margin: 0 6px;
+    cursor: pointer; transition: background 0.15s;
+}
+.chromeGroupRow:hover   { background: #f7f7f7; }
+.chromeGroupExpand      { all: unset; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #aaa; width: 16px; flex-shrink: 0; }
+.chromeGroupDot         { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.chromeGroupLabel       { font-weight: 600; font-size: 13px; flex: 1; }
+.chromeGroupCount       { font-size: 12px; color: #888; }
+.chromeGroupExtra       { font-size: 11px; color: #aaa; background: #f2f2f2; border-radius: 5px; padding: 1px 5px; }
+.chromeGroupMenu        { all: unset; cursor: pointer; color: #bbb; display: flex; align-items: center; border-radius: 6px; padding: 2px 4px; transition: background 0.15s, color 0.15s; }
+.chromeGroupMenu:hover  { background: #ebebeb; color: #555; }
+
+/* ── Count badge (stage 2) ── */
+.chromeGroupCountBadge  { min-width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: white; padding: 0 5px; }
+
+/* ── Tab items ── */
+.chromeTabItems { display: flex; flex-direction: column; padding: 2px 0 6px; }
+.chromeTabItem  { display: flex; align-items: center; gap: 10px; padding: 7px 14px 7px 38px; border-radius: 8px; margin: 0 6px; cursor: pointer; transition: background 0.15s; }
+.chromeTabItem:hover    { background: #f7f7f7; }
+.chromeTabFavicon       { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.chromeTabInfo          { display: flex; flex-direction: column; gap: 1px; flex: 1; min-width: 0; }
+.chromeTabTitle         { font-size: 13px; font-weight: 500; color: #111; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.chromeTabUrl           { font-size: 11px; color: #aaa; }
+.chromeTabPin           { display: flex; align-items: center; flex-shrink: 0; }
+
+/* ── Saved session items (stage 2) ── */
+.chromeSessionItem      { display: flex; align-items: center; gap: 10px; padding: 8px 14px 8px 38px; border-radius: 8px; margin: 0 6px; cursor: pointer; transition: background 0.15s; }
+.chromeSessionItem:hover { background: #f7f7f7; }
+.chromeSessionDot       { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.chromeRestoreBtn       { all: unset; cursor: pointer; font-size: 11px; font-weight: 600; color: #555; background: #f2f2f2; border: 1px solid #e0e0e0; border-radius: 6px; padding: 3px 10px; white-space: nowrap; transition: background 0.15s; flex-shrink: 0; }
+.chromeRestoreBtn:hover { background: #e5e5e5; }

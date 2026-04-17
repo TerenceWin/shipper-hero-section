@@ -1,0 +1,40 @@
+/* ── Night mode ── */
+.airbnbNavNight      { background-color: #101811; color: white; border-bottom: 1px solid #333; }
+.categoryBarNight    { background-color: #101811; color: white; }
+.categoryBarWrapperNight { border-bottom-color: #333; background-color: #101811; }
+.listingGridNight    { background-color: #101811; color: white; }
+.listingPriceNight   { color: white; }
+.categoryItemNight   { color: #666; }
+.categoryItemNight:hover { color: white; border-bottom-color: #dddddd; }
+.categoryItemNight:hover .categoryIconNight { filter: brightness(0) invert(1); }
+.categoryIconNight   { filter: brightness(0) invert(1) opacity(0.4); transition: filter 0.2s; }
+
+/* ── Night/day mode toggle ── */
+.modeToggle  { cursor: pointer; }
+.modeWrapper {
+    padding: 10px; box-sizing: border-box; border-radius: 50%;
+    background-color: white; border: 1px solid #ebebeb;
+    display: flex; justify-content: center; align-items: center;
+}
+.modeImage      { width: 15px; height: 15px; }
+.modeImageLight { transform: scale(2.0); }
+
+/* ── Stage 0 placeholder ── */
+.airbnbLivePlaceholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    background-color: #f9f9f9; border-radius: 15px;
+}
+.airbnbLivePlaceholderInner { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.airbnbLivePlaceholderText  { margin: 0; font-size: 13px; color: #aaa; font-family: sans-serif; }
+.airbnbLiveDots { display: flex; gap: 6px; }
+.airbnbLiveDots span {
+    width: 8px; height: 8px; border-radius: 50%; background-color: #ccc;
+    animation: liveDotBounce 1.2s ease-in-out infinite;
+}
+.airbnbLiveDots span:nth-child(2) { animation-delay: 0.2s; }
+.airbnbLiveDots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes liveDotBounce {
+    0%, 80%, 100% { transform: translateY(0);    opacity: 0.4; }
+    40%            { transform: translateY(-8px); opacity: 1;   }
+}

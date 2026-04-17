@@ -1,0 +1,110 @@
+/* ── Container ── */
+.airbnb {
+    width: 100%; height: 100%;
+    background-color: #fff;
+    font-family: sans-serif; font-size: 14px; color: #222;
+    display: flex; flex-direction: column;
+    overflow: hidden; border-radius: 15px;
+    position: relative;
+}
+
+/* ── Navbar ── */
+.airbnbNav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 24px;
+    border-bottom: 1px solid #ebebeb; flex-shrink: 0;
+}
+.airbnbLogo { width: 100px; height: 40px; object-fit: contain; }
+
+/* Search bar */
+.airbnbSearchBar {
+    display: flex; align-items: center;
+    border: 1px solid #dddddd; border-radius: 40px;
+    padding: 4px 4px 4px 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+    gap: 1px; cursor: pointer; position: relative;
+}
+.searchSegment      { font-size: 13px; font-weight: 500; padding: 0 5px; white-space: nowrap; }
+.searchSegmentFaint { color: #717171; font-weight: 400; }
+.searchDivider      { width: 1px; height: 20px; background-color: #dddddd; flex-shrink: 0; }
+.searchButton {
+    all: unset; cursor: pointer;
+    background-color: #ff385c; border-radius: 50%;
+    width: 25px; height: 25px;
+    display: flex; align-items: center; justify-content: center;
+    margin-left: 4px; flex-shrink: 0;
+}
+.searchIcon { width: 14px; height: 14px; filter: invert(1); }
+
+/* Search dropdown */
+.searchDropdown {
+    position: absolute; border-radius: 10px;
+    top: 120%; left: -40%; width: 330px; height: 65px;
+    padding: 10px; margin: 0; box-sizing: border-box;
+    background-color: white;
+    border: 1px solid #ebebeb; box-shadow: 0 1px 3px #ebebeb; z-index: 99;
+}
+.searchDropdownTitle   { padding: 0; margin: 0; height: 50%; font-size: 12px; font-weight: bold; }
+.searchDropdownOptions { display: flex; justify-content: space-between; align-items: center; width: 100%; height: 50%; }
+.searchDropdownOption  { font-size: 9.5px; color: #717171; padding: 5px; border-radius: 10px; background-color: white; border: 1px solid #ebebeb; box-shadow: 0 1px 3px #ebebeb; }
+.searchDropdownOption:hover { border-color: #222; }
+
+/* ── Category Bar ── */
+.categoryBarWrapper {
+    display: flex; align-items: center;
+    border-bottom: 1px solid #ebebeb; flex-shrink: 0; padding-right: 24px;
+}
+.categoryBarWrapper .categoryBar { border-bottom: none; flex: 1; min-width: 0; }
+.categoryBar {
+    display: flex; gap: 4px; padding: 8px 24px;
+    overflow-x: auto; flex-shrink: 0; scrollbar-width: none;
+}
+.categoryBar::-webkit-scrollbar { display: none; }
+.categoryItem {
+    all: unset; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 6px; padding: 0 10px 5px; font-size: 12px; color: #717171;
+    border-bottom: 2px solid transparent; white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s; flex-shrink: 0;
+}
+.categoryItem:hover       { color: #222; border-bottom-color: #dddddd; }
+.categoryItemActive       { color: #222; border-bottom-color: #222; font-weight: 500; }
+.categoryItem span        { font-size: 11px; }
+.categoryIcon             { width: 15px; height: 15px; object-fit: contain; opacity: 0.6; }
+.categoryItemActive .categoryIcon { opacity: 1; }
+
+/* ── Listing Grid ── */
+.listingGrid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; padding: 24px; overflow-y: auto; flex: 1; }
+.listingCard { display: flex; flex-direction: column; gap: 8px; cursor: pointer; }
+.listingImageWrapper { position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 1/1; }
+.imagePlaceholder { width: 100%; height: 100%; background-color: #ebebeb; overflow: hidden; }
+.listingImage     { width: 100%; height: 100%; display: block; object-fit: cover; }
+.guestBadge {
+    position: absolute; top: 10px; left: 10px;
+    background-color: white; font-size: 11px; font-weight: 600;
+    padding: 4px 8px; border-radius: 6px; z-index: 1;
+}
+.guestBadgeNight { color: black; }
+.saveButton { all: unset; cursor: pointer; position: absolute; top: 10px; right: 10px; z-index: 1; }
+.heartIcon  { width: 24px; height: 24px; fill: rgba(0,0,0,0.35); stroke: white; stroke-width: 1.5px; transition: fill 0.2s; }
+.listingInfo    { display: flex; flex-direction: column; gap: 2px; }
+.listingInfoRow { display: flex; justify-content: space-between; align-items: center; }
+.listingLocation { font-weight: 600; font-size: 13px; }
+.listingRating   { font-size: 13px; font-weight: 500; }
+.listingPrice    { font-size: 13px; color: #444; }
+
+/* ── Show Map Button ── */
+.showMapWrapper {
+    position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background-color: transparent; pointer-events: none; z-index: 10;
+}
+.showMapWrapper > * { pointer-events: auto; }
+.showMapButton {
+    all: unset; cursor: pointer;
+    background-color: #222; color: white;
+    font-size: 13px; font-weight: 600;
+    padding: 12px 20px; border-radius: 24px;
+    display: flex; align-items: center; gap: 8px;
+}
+.showMapButton:hover { background-color: #444; }
+.mapIcon { width: 16px; height: 16px; fill: white; }
