@@ -11,11 +11,13 @@
 }
 
 .leftTabBar{
-    display: flex; 
-    padding: 0 5px; 
-    max-width: 500px;
-    overflow-y: scroll; 
-    justify-content: space-around;
+    display: flex;
+    padding: 0 5px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    justify-content: flex-start;
+    gap: 5px;
+    flex-wrap: nowrap;
 }
 
 .dropDownTab{
@@ -34,17 +36,19 @@
 }
 
 .tab{
-    display: flex; 
+    display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 15px; 
-    padding: 0 10px; 
-    margin-right: 3px; 
+    border-radius: 15px;
+    padding: 0 10px;
+    margin-right: 0;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .icon{
-    width: 22px;
-    height: 22px; 
+    width: 20px;
+    height: 20px; 
 }
 .webTab p{
     margin-left: 3px; 
@@ -122,6 +126,20 @@
 
 .slackVisible{
     display: block;
+}
+
+.tabShortText {
+    display: none;
+}
+
+@media (max-width: 1150px) and (min-width: 860px) {
+    .tabLongText {
+        display: none;
+    }
+
+    .tabShortText {
+        display: inline;
+    }
 }
 
 

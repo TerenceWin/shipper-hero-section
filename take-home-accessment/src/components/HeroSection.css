@@ -2,6 +2,7 @@
     border: 1px solid #edece7;
     background-color: #f3f4ee;
     margin-top: 50px; 
+    width: 100%;
     height: 760px; 
     border-radius: 15px;
     box-sizing: border-box;
@@ -13,9 +14,7 @@
 .leftPanel{
     border: 1px solid #edece7;
     border-radius: 15px;
-    width: 450px;
-    min-width: 450px;
-    max-width: 450px;
+    width: 35%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -26,8 +25,205 @@
 .rightPanel{
     border: 1px solid #edece7;
     border-radius: 15px;
-    width: 1150px;
+    width: 65%;
     height: 100%;
     margin-left: 10px;
+    position: relative;
+    transition: opacity 1s ease-in-out;
 }
 
+.rightPanel.transitioning {
+    opacity: 0;
+}
+
+.readyOverlay > *{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    animation: blurBackground 0.3s ease-out forwards;
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.8);
+}
+
+@keyframes blurBackground{
+    from{
+        background-color: rgb(47,47,47, 0);
+        backdrop-filter: blur(0);
+    }
+    to{
+        background-color: rgba(29, 29, 29, 0.8);
+        backdrop-filter: blur(8px);
+    }
+}
+
+.readyMessage {
+    text-align: center;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: -0.5px;
+}
+
+.readyMessage p:first-of-type{
+    font-size: 20px; 
+}
+
+.readyMessage p{
+    margin: 0; 
+}
+
+.readyMessage p:last-of-type{
+    margin-bottom: 15px;
+}
+
+.startButton{
+    font-size: 16px;
+    color: #1f1f1f;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+}
+
+/* ── Mobile View ── */
+.mobileBottomTabs {
+    display: none;
+    gap: 0;
+    border-top: 1px solid #edece7;
+    flex-shrink: 0;
+}
+
+.mobileTab {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    color: #4e4e4e;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+}
+
+
+.mobileTab.mobileTabActive {
+    color: #222;
+    border-bottom-color: #222;
+    background-color: #f3f4ee;
+}
+
+.mobileActive {
+    display: none;
+}
+
+.mobileHidden {
+    display: none;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1150px) and (min-width: 860px) {
+    .leftPanel {
+        width: 300px;
+        min-width: 300px;
+        max-width: 300px;
+        flex: 0 0 300px;
+    }
+
+    .rightPanel {
+        width: calc(100% - 310px);
+        flex: 1;
+    }
+}
+
+/* Desktop and tablet - show both panels */
+@media (min-width: 860px) {
+    .leftPanel {
+        display: flex !important;
+    }
+
+    .rightPanel {
+        display: flex !important;
+    }
+
+    .mobileBottomTabs {
+        display: none !important;
+    }
+}
+
+/* Mobile - show only one panel at a time */
+@media (max-width: 859px) {
+    .heroSection {
+        flex-direction: column;
+        height: auto;
+        padding: 10px 10px 0 10px;
+    }
+
+    .leftPanel {
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+        flex: 0 0 auto;
+        height: 600px;
+        margin-bottom: 0;
+        border-radius: 0;
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+
+    .leftPanel.mobileHidden {
+        display: none;
+    }
+
+    .leftPanel.mobileActive {
+        display: flex;
+    }
+
+    .leftPanel .chatSection {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .leftPanel .chatHistory {
+        flex: 1;
+        overflow-y: auto;
+    }
+
+    .leftPanel .chatBox {
+        flex-shrink: 0;
+    }
+
+    .rightPanel {
+        width: 100%;
+        height: 600px;
+        margin-left: -10px;
+        margin-right: -10px;
+        margin-top: 0;
+        margin-bottom: 0;
+        border-radius: 0;
+    }
+
+    .rightPanel.mobileHidden {
+        display: none;
+    }
+
+    .rightPanel.mobileActive {
+        display: flex;
+    }
+
+    .mobileBottomTabs {
+        display: flex;
+        border-radius: 0 0 15px 15px;
+        margin-left: -10px;
+        margin-right: -10px;
+        margin-bottom: -10px;
+        margin-top: 0;
+    }
+}

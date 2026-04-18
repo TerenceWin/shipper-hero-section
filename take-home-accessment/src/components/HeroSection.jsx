@@ -7,6 +7,7 @@ import MobileLive from './Mobile/MobileLive'
 import SlackLive from './Slack/SlackLive'
 import BuildingPreview from './BuildingPreview'
 import './HeroSection.css'
+import hoverPreview from '../assets/previewIcon.svg'
 
 const TABS = ['web', 'chrome', 'mobile', 'slack']
 
@@ -15,24 +16,45 @@ function HeroSection(){
     const [buildStage,     setBuildStage]     = useState(1)
     const [buildProgress,  setBuildProgress]  = useState({ revealed: 0, total: 0 })
     const [isBuilding,     setIsBuilding]     = useState(false)
+    const [hasUserSubmitted, setHasUserSubmitted] = useState(false)
+    const [rightPanelHover, setRightPanelHover] = useState(false)
+    const [isTabTransitioning, setIsTabTransitioning] = useState(false)
+    const [mobileView, setMobileView] = useState('builder')
     const intervalRef = useRef(null)
 
-    // Reset build state whenever the tab changes
+    // Reset build state and fade back in when tab changes
     useEffect(() => {
         setBuildStage(1)
         setBuildProgress({ revealed: 0, total: 0 })
         setIsBuilding(false)
+        setHasUserSubmitted(false)
+
+        const timer = setTimeout(() => {
+            setIsTabTransitioning(false)
+        }, 1000)
+        return () => clearTimeout(timer)
     }, [activeTab])
 
-    useEffect(() => {
+    const startRotation = () => {
+        clearInterval(intervalRef.current)
         intervalRef.current = setInterval(() => {
             setActiveTab(prev => {
                 const nextIndex = (TABS.indexOf(prev) + 1) % TABS.length
                 return TABS[nextIndex]
             })
         }, 10000)
+    }
+
+    useEffect(() => {
+        startRotation()
         return () => clearInterval(intervalRef.current)
     }, [])
+
+    const handleTabChange = (tab) => {
+        setIsTabTransitioning(true)
+        setActiveTab(tab)
+        startRotation()
+    }
 
     const stopRotation = () => clearInterval(intervalRef.current)
 
@@ -40,6 +62,7 @@ function HeroSection(){
     const handleSubmit = () => {
         setIsBuilding(true)
         setBuildProgress({ revealed: 0, total: 0 })
+        setHasUserSubmitted(true)
     }
 
     // Called as files are revealed in the current response animation
@@ -53,8 +76,8 @@ function HeroSection(){
 
     return(
     <div id="heroSection" className="heroSection">
-        <div id="leftPanel" className="leftPanel">
-            <TabBar activeTab={activeTab} setActiveTab={setActiveTab}/>
+        <div id="leftPanel" className={`leftPanel ${mobileView === 'builder' ? 'mobileActive' : 'mobileHidden'}`}>
+            <TabBar activeTab={activeTab} setActiveTab={handleTabChange}/>
             <ChatSection
                 activeTab={activeTab}
                 stopRotation={stopRotation}
@@ -63,7 +86,12 @@ function HeroSection(){
                 onResponseDone={handleResponseDone}
             />
         </div>
-        <div id="rightPanel" className="rightPanel">
+        <div
+            id="rightPanel"
+            className={`rightPanel ${isTabTransitioning ? 'transitioning' : ''} ${mobileView === 'preview' ? 'mobileActive' : 'mobileHidden'}`}
+            onMouseEnter={() => setRightPanelHover(true)}
+            onMouseLeave={() => setRightPanelHover(false)}
+        >
             {isBuilding ? (
                 <BuildingPreview />
             ) : activeTab === 'chrome' ? (
@@ -73,8 +101,36 @@ function HeroSection(){
             ) : activeTab === 'slack' ? (
                 <SlackLive stage={buildStage === 1 ? 3 : buildStage - 1} />
             ) : (
-                <AirbnbLive stage={buildStage} buildProgress={buildProgress} />
+                <AirbnbLive stage={Math.max(1, buildStage - 1)} buildProgress={buildProgress} />
             )}
+
+            {!hasUserSubmitted && rightPanelHover && (
+                <div className="readyOverlay">
+                    <div className="readyMessage">
+                        <div className="hoverPreviewIcon">
+                            <img src={hoverPreview} />
+                        </div>
+                        <p>Ready to be amazed</p>
+                        <p>Watch Shipper work its magic on your idea</p>
+                        <button className="startButton" onClick={handleSubmit}>Start building</button>
+                    </div>
+                </div>
+            )}
+        </div>
+
+        <div className="mobileBottomTabs">
+            <button
+                className={`mobileTab ${mobileView === 'builder' ? 'mobileTabActive' : ''}`}
+                onClick={() => setMobileView('builder')}
+            >
+                Builder
+            </button>
+            <button
+                className={`mobileTab ${mobileView === 'preview' ? 'mobileTabActive' : ''}`}
+                onClick={() => setMobileView('preview')}
+            >
+                Preview
+            </button>
         </div>
     </div>
   )

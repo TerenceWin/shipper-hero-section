@@ -38,13 +38,13 @@ function TabBar({ activeTab, setActiveTab }){
                     onClick={() => setActiveTab('chrome')}
                 >
                     <img src={chromeIcon} className="icon chromeIcon" alt="Chrome"/>
-                    <p>Chrome Extension</p>
+                    <p><span className="tabLongText">Chrome Extension</span><span className="tabShortText">Extension</span></p>
                 </div>
                 <div className={`tab mobileTab tabHover ${activeTab === 'mobile' ? 'activeTab' : ''}`}
                     onClick={() => setActiveTab('mobile')}
                 >
                     <img src={mobileIcon} className="icon mobileIcon" alt="mobile"></img>
-                    <p>Mobile App</p>
+                    <p><span className="tabLongText">Mobile App</span><span className="tabShortText">App</span></p>
                 </div>
             </div>
             <div className="dropDownTab" ref={dropDownRef}>
