@@ -14,8 +14,8 @@ const CLOUD_PERM_TEXT     = 'Shipper needs permission to enable cloud backend fo
 
 // Estimate how long the full response animation will take in ms
 const estimateResponseDuration = (data) => {
-    const isCloud    = data[1] === 'Enable Shipper Cloud'
     const thought    = data[0]
+    const isCloud    = data[1] === 'Enable Shipper Cloud'
     const files      = isCloud ? data[2] : data[1]
     const completion = isCloud ? data[3] : data[2]
     const success    = isCloud ? data[4] : data[3]
@@ -31,13 +31,16 @@ const estimateResponseDuration = (data) => {
     )
 }
 
-function ChatSection({ activeTab, stopRotation, onBuildProgress, onSubmit, onResponseDone }){
+function ChatSection({ activeTab, stopRotation, onSubmit, onResponseDone }){
 
     const { isFocused, textareaValue, animationDone, messages, handleFocus, handleBlur, handleChange, handleKeyDown, requestText } = useChatSection(activeTab, stopRotation, onSubmit)
 
     const [cloudEnabled, setCloudEnabled]               = useState(false)
+
+    //Green Bar timer
     const [timerProgress, setTimerProgress]             = useState(0)
     const [timerTransitionDuration, setTimerTransition] = useState(800)
+
     const completedCountRef  = useRef(0)
     const chatHistoryRef     = useRef(null)
 
@@ -63,28 +66,35 @@ function ChatSection({ activeTab, stopRotation, onBuildProgress, onSubmit, onRes
         if (!lastMsg || lastMsg.type !== 'response') return
 
         const isCloud = lastMsg.data[1] === 'Enable Shipper Cloud'
-        if (isCloud) return  // cloud timing is unknown, handled in onResponseComplete
+        if (isCloud) return  // cloud timing unknown — handled when user clicks enable
 
-        const nextCount  = completedCountRef.current + 1
+        const nextCount    = completedCountRef.current + 1
         const nextProgress = Math.min((nextCount / totalResponses) * 100, 100)
-        const duration   = estimateResponseDuration(lastMsg.data) + 3000  // +3s after ends
+        const duration     = estimateResponseDuration(lastMsg.data) + 3000
 
         setTimerTransition(duration)
         setTimerProgress(nextProgress)
     }, [messages.length])
 
+    // When user enables cloud, start the timerLine from that moment
+    useEffect(() => {
+        if (!cloudEnabled) return
+
+        const cloudMsg = messages.find(m => m.type === 'response' && m.data[1] === 'Enable Shipper Cloud')
+        if (!cloudMsg) return
+
+        const nextCount    = completedCountRef.current + 1
+        const nextProgress = Math.min((nextCount / totalResponses) * 100, 100)
+        const duration     = estimateResponseDuration(cloudMsg.data) + 3000
+
+        setTimerTransition(duration)
+        setTimerProgress(nextProgress)
+    }, [cloudEnabled])
+
     // Called when response animation fully completes
     const onResponseComplete = () => {
         completedCountRef.current++
-        const progress = Math.min((completedCountRef.current / totalResponses) * 100, 100)
-
         onResponseDone?.()
-
-        // End the timerLine exactly 3 seconds after response finishes
-        setTimeout(() => {
-            setTimerTransition(3000)
-            setTimerProgress(progress)
-        }, 3000)
     }
 
     return (
@@ -110,7 +120,6 @@ function ChatSection({ activeTab, stopRotation, onBuildProgress, onSubmit, onRes
                             cloudEnabled={cloudEnabled}
                             setCloudEnabled={setCloudEnabled}
                             onComplete={onResponseComplete}
-                            onFileProgress={onBuildProgress}
                             scrollToBottom={scrollToBottom}
                         />
                     )

@@ -14,7 +14,6 @@ const TABS = ['web', 'chrome', 'mobile', 'slack']
 function HeroSection(){
     const [activeTab,      setActiveTab]      = useState('web')
     const [buildStage,     setBuildStage]     = useState(1)
-    const [buildProgress,  setBuildProgress]  = useState({ revealed: 0, total: 0 })
     const [isBuilding,     setIsBuilding]     = useState(false)
     const [hasUserSubmitted, setHasUserSubmitted] = useState(false)
     const [rightPanelHover, setRightPanelHover] = useState(false)
@@ -22,10 +21,10 @@ function HeroSection(){
     const [mobileView, setMobileView] = useState('builder')
     const intervalRef = useRef(null)
 
+
     // Reset build state and fade back in when tab changes
     useEffect(() => {
         setBuildStage(1)
-        setBuildProgress({ revealed: 0, total: 0 })
         setIsBuilding(false)
         setHasUserSubmitted(false)
 
@@ -61,12 +60,8 @@ function HeroSection(){
     // Called each time user submits a prompt — show BuildingPreview
     const handleSubmit = () => {
         setIsBuilding(true)
-        setBuildProgress({ revealed: 0, total: 0 })
         setHasUserSubmitted(true)
     }
-
-    // Called as files are revealed in the current response animation
-    const handleBuildProgress = (revealed, total) => setBuildProgress({ revealed, total })
 
     // Called when a full response animation completes — hide BuildingPreview, advance stage
     const handleResponseDone = () => {
@@ -82,7 +77,6 @@ function HeroSection(){
                 activeTab={activeTab}
                 stopRotation={stopRotation}
                 onSubmit={handleSubmit}
-                onBuildProgress={handleBuildProgress}
                 onResponseDone={handleResponseDone}
             />
         </div>
@@ -101,7 +95,7 @@ function HeroSection(){
             ) : activeTab === 'slack' ? (
                 <SlackLive stage={buildStage === 1 ? 3 : buildStage - 1} />
             ) : (
-                <AirbnbLive stage={Math.max(1, buildStage - 1)} buildProgress={buildProgress} />
+                <AirbnbLive stage={Math.max(1, buildStage - 1)} />
             )}
 
             {!hasUserSubmitted && rightPanelHover && (

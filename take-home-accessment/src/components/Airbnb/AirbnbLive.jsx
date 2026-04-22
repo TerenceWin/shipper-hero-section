@@ -9,7 +9,7 @@ import nightIcon  from '../../assets/airbnb/moon.png'
 import lightIcon  from '../../assets/airbnb/sun.png'
 
 // stage 1 = base Airbnb | stage 2 = + night toggle | stage 3 = + filters
-function AirbnbLive({ stage = 1, buildProgress = { revealed: 0, total: 0 } }) {
+function AirbnbLive({ stage = 1 }) {
     const [activeCategory, setActiveCategory] = useState('Trending')
     const [openSegment,    setOpenSegment]    = useState(null)
     const [nightMode,      setNightMode]      = useState(false)

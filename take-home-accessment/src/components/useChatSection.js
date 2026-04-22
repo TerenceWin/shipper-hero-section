@@ -6,9 +6,12 @@ const TYPING_TEXTS = [TYPING_TEXTS1, TYPING_TEXTS2, TYPING_TEXTS3]
 const RESPONSE_TEXTS = [RESPONSE_TEXT1, RESPONSE_TEXT2, RESPONSE_TEXT3]
 
 export function useChatSection(activeTab, stopRotation, onSubmit) {
+    //Textarea, User input and animation text 
     const [isFocused, setIsFocused] = useState(false)
     const [animatedText, setAnimatedText] = useState('')
     const [userTyped, setUserTyped] = useState(null)
+
+    //Return response message, current stage/ round
     const [messages, setMessages] = useState([])
     const [round, setRound] = useState(0)
     const [animationDone, setAnimationDone] = useState(false)
@@ -56,7 +59,7 @@ export function useChatSection(activeTab, stopRotation, onSubmit) {
             if (charIndexRef.current <= currentText.length) {
                 setAnimatedText(currentText.slice(0, charIndexRef.current))
                 charIndexRef.current++
-                timerRef.current = setTimeout(animate, 45)
+                timerRef.current = setTimeout(animate, 35)
             }
         }
 
@@ -127,7 +130,6 @@ export function useChatSection(activeTab, stopRotation, onSubmit) {
             if (nextText) {
                 setRound(nextRound)
             } else {
-                // No more rounds — show placeholder after response
                 setAnimationDone(true)
             }
         } else {

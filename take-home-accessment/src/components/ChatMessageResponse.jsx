@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import arrowIcon from '../assets/arrowUp.png'
 import './ChatMessageResponse.css'
 
-const TYPING_SPEED = 6         // 2x faster than previous 12ms
-const FILE_REVEAL_SPEED = 75   // 2x faster than previous 150ms
+const TYPING_SPEED = 6         
+const FILE_REVEAL_SPEED = 75   
 const CLOUD_PERMISSION_TEXT = 'Shipper needs permission to enable cloud backend for session saving and authentication.'
 
 function CollapsibleSection({ header, children, wrapperClass, isThinking }) {
@@ -171,7 +171,6 @@ function ChatMessageResponse({ msg, cloudEnabled, setCloudEnabled, onComplete, o
                 ) : (
                     /* ── Expanded enable card ── */
                     <div className="cloudCard">
-                        {/* Header */}
                         <div className="cloudCardHeader">
                             <div className="cloudCardHeaderLeft">
                                 <div className="cloudCardIconWrap">
